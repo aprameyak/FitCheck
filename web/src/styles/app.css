@@ -1,0 +1,643 @@
+/* =============================================================================
+   Module Overview
+   =============================================================================
+   Shared components that more than one screen draws: tag chips, the
+   before-and-after slider, closet thumbnails and shelves, the week strip, and
+   the pipeline and settings sheets. Screen layouts and the `fc-` flow live in
+   flow.css. */
+
+/* ---------- small text pieces ---------- */
+
+.muted {
+  color: var(--fog);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pill-warn {
+  border-color: var(--warn);
+  color: var(--warn);
+}
+
+/* ---------- tag chips ---------- */
+
+.chips {
+  display: grid;
+  gap: 10px;
+}
+
+.chips-description {
+  margin-bottom: 12px;
+  color: var(--fg-2);
+  font: 500 17px/1.4 var(--sans);
+}
+
+.chips-description::first-letter {
+  text-transform: uppercase;
+}
+
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--bg-1);
+  color: var(--fg);
+  font: 500 14px/1.2 var(--sans);
+  animation: fc-enter 300ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 40ms);
+}
+
+.chip::first-letter {
+  text-transform: uppercase;
+}
+
+.chip-swatch {
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+}
+
+.chip-blank {
+  min-width: 64px;
+  min-height: 32px;
+  border-color: transparent;
+  background: var(--bg-2);
+}
+
+/* ---------- before and after ---------- */
+
+.compare {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  max-height: 78vh;
+  overflow: hidden;
+  background: var(--bg-2);
+  user-select: none;
+}
+
+.compare img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.compare-before {
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+
+.compare-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  margin-left: -1px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
+.compare-handle span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: rgba(20, 20, 18, 0.55);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* The range input is invisible, so keyboard focus shows on the handle it moves */
+.compare:has(.compare-input:focus-visible) .compare-handle span {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+.compare-label {
+  position: absolute;
+  top: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  color: #141412;
+  font: 600 12px/1 var(--sans);
+}
+
+.compare-label.is-before {
+  left: 12px;
+}
+
+.compare-label.is-after {
+  right: 12px;
+}
+
+.compare-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+}
+
+/* ---------- closet shelves and thumbs ---------- */
+
+.shelves {
+  display: grid;
+  gap: 18px;
+}
+
+.shelf {
+  display: grid;
+  gap: 10px;
+}
+
+.shelf h3 {
+  margin-bottom: 10px;
+}
+
+/* The same grid as the closet page, so a garment looks the same everywhere */
+.shelf-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 18px 14px;
+}
+
+.shelf-empty {
+  color: var(--fog);
+}
+
+.thumb {
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.thumb-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg-1);
+}
+
+/* Show the whole garment in its square, however tall the crop from a closet scan is;
+   pinned to the frame because a percentage height does not resolve against aspect-ratio */
+.thumb-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 6px;
+  object-fit: contain;
+}
+
+.thumb[data-badge="true"] .thumb-frame {
+  outline: 2px solid var(--fg);
+  outline-offset: -2px;
+}
+
+.thumb-badge {
+  position: absolute;
+  inset: 8px auto auto 8px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: var(--fg);
+  color: var(--bg);
+  font: 600 11px/1 var(--sans);
+}
+
+.thumb figcaption {
+  display: grid;
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.thumb-name {
+  font-weight: 500;
+}
+
+.thumb-name::first-letter {
+  text-transform: uppercase;
+}
+
+.thumb-meta {
+  color: var(--fog);
+  font: 400 13px/1.3 var(--sans);
+}
+
+.thumb-source {
+  overflow: hidden;
+  color: var(--fog);
+  font-size: 12px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- week strip ---------- */
+
+.week {
+  display: grid;
+  gap: 12px;
+}
+
+.week-days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.week-day {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 10px 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-1);
+  animation: label-drop 300ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 40ms);
+}
+
+@keyframes label-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+}
+
+.week-day[data-today="true"] {
+  border-color: var(--fg);
+}
+
+.week-dow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fog);
+}
+
+.week-date {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.week-glyph svg {
+  width: 26px;
+  height: 26px;
+}
+
+.week-day[data-kind="rain"] .week-glyph,
+.week-day[data-kind="storm"] .week-glyph,
+.week-day[data-kind="drizzle"] .week-glyph {
+  color: var(--try);
+}
+
+.week-hi {
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.week-lo {
+  font-size: 13px;
+  color: var(--fog);
+}
+
+.week-rain {
+  width: 70%;
+  height: 4px;
+  background: var(--bg-3);
+}
+
+.week-rain span {
+  display: block;
+  width: var(--rain);
+  height: 100%;
+  background: var(--try);
+}
+
+.week-plan {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--fg);
+}
+
+.week-missing {
+  color: var(--fog);
+  font-size: 15px;
+}
+
+.events {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.event {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 2px 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+
+.event-when {
+  grid-row: span 2;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--fog);
+}
+
+.event-title {
+  font-weight: 600;
+}
+
+.event-code {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fog);
+}
+
+.dots {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid var(--fog);
+}
+
+.dots span[data-on="true"] {
+  background: var(--fg);
+  border-color: var(--fg);
+}
+
+.attribution {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--fog);
+}
+
+/* ---------- sheets ---------- */
+
+.sheet-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.sheet-layer[data-open="true"] {
+  pointer-events: auto;
+}
+
+.sheet-scrim {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transition: opacity var(--medium);
+}
+
+.sheet-layer[data-open="true"] .sheet-scrim {
+  opacity: 1;
+}
+
+.sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  max-height: 88dvh;
+  border-radius: 22px 22px 0 0;
+  background: var(--bg-1);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(105%);
+  transition: transform var(--medium) var(--ease-out);
+}
+
+.sheet-layer[data-open="true"] .sheet {
+  transform: none;
+}
+
+/* Closed panels stay hidden even while a rotation or resize re-runs their slide transition */
+.sheet-layer:not([data-open="true"]) .sheet {
+  visibility: hidden;
+  transition:
+    transform var(--medium) var(--ease-out),
+    visibility 0s linear var(--medium);
+}
+
+@media (min-width: 900px) {
+  .sheet {
+    left: auto;
+    top: 0;
+    width: min(480px, 100%);
+    max-height: none;
+    border-radius: 22px 0 0 22px;
+    transform: translateX(105%);
+  }
+}
+
+.sheet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px var(--gutter);
+  border-bottom: 1px solid var(--line);
+}
+
+.sheet-head h2 {
+  font: 600 20px/1.2 var(--sans);
+  letter-spacing: -0.01em;
+}
+
+.sheet-body {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  overflow-y: auto;
+  padding: 16px var(--gutter) calc(24px + env(safe-area-inset-bottom));
+}
+
+.privacy-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  background: var(--buy);
+  color: var(--bg);
+  font-weight: 600;
+}
+
+.privacy-badge[data-warn="true"] {
+  background: var(--warn);
+}
+
+.privacy-badge svg {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+
+.pipe-group {
+  display: grid;
+  gap: 8px;
+}
+
+.pipe-steps {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pipe-step {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 10px;
+  padding: 10px 12px;
+  background: var(--bg-2);
+  border-left: 3px solid var(--fg);
+}
+
+.pipe-step[data-skipped="true"] {
+  opacity: 0.55;
+  border-left-color: var(--fog);
+}
+
+.pipe-step[data-warn="true"] {
+  border-left-color: var(--warn);
+}
+
+.pipe-name {
+  font-family: var(--mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pipe-ms {
+  grid-row: 1;
+  grid-column: 2;
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+.pipe-adapter {
+  grid-column: 1 / -1;
+  font-size: 15px;
+}
+
+.pipe-adapter em {
+  color: var(--fog);
+}
+
+.pipe-meta {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* ---------- settings form ---------- */
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field-row {
+  display: flex;
+  gap: 8px;
+}
+
+.field-row input {
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--line-strong);
+  background: var(--bg);
+  font-size: 16px;
+}
+
+.toggle {
+  display: flex;
+  gap: 12px;
+  align-items: start;
+}
+
+.toggle input {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--fg);
+}
+
+.toggle small {
+  display: block;
+}

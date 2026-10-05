@@ -1,0 +1,92 @@
+/* =============================================================================
+   Module Overview
+   =============================================================================
+   Design tokens for FitCheck: black type on warm white, one sans family, and
+   colour reserved for the verdict itself (green BUY, red SKIP, blue TRY-WITH).
+   Every text colour clears 4.5:1 on `--bg`, except `--fg-muted`, which is for
+   decoration only.
+   Camera screens flip to `.is-dark` tokens so controls read over live video. */
+
+:root {
+  /* ---------- surfaces and type colour ---------- */
+  --bg: #f7f6f2;
+  --bg-1: #ffffff;
+  --bg-2: #efede7;
+  --bg-3: #e3e0d8;
+  --line: rgba(20, 20, 18, 0.09);
+  --line-strong: rgba(20, 20, 18, 0.18);
+  --fg: #141412;
+  --fg-2: #2b2b28;
+  --fog: #6e6c66;
+  --fg-muted: #a9a69e;
+
+  /* ---------- verdict colours, the only accents ---------- */
+  --buy: #1d7a45;
+  --skip: #c8371f;
+  --try: #2846c4;
+  --warn: #965808;
+  --accent: var(--fg);
+
+  /* ---------- type: one family ---------- */
+  --sans: "Instrument Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --display: var(--sans);
+  --mono: var(--sans);
+
+  /* ---------- motion ---------- */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --fast: 160ms;
+  --medium: 280ms;
+
+  /* ---------- layout ---------- */
+  --gutter: 20px;
+
+  color-scheme: light;
+}
+
+@media (min-width: 900px) {
+  :root {
+    --gutter: 32px;
+  }
+}
+
+/* Over live video: white controls on dark glass */
+.is-dark {
+  --bg: #000000;
+  --bg-1: #111111;
+  --bg-2: #1c1c1c;
+  --bg-3: #2a2a2a;
+  --line: rgba(255, 255, 255, 0.14);
+  --line-strong: rgba(255, 255, 255, 0.3);
+  --fg: #ffffff;
+  --fg-2: #e8e8e8;
+  --fog: rgba(255, 255, 255, 0.72);
+
+  color-scheme: dark;
+}
+
+[data-decision="buy"] {
+  --accent: var(--buy);
+}
+
+[data-decision="skip"] {
+  --accent: var(--skip);
+}
+
+[data-decision="try_with"] {
+  --accent: var(--try);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --fast: 0ms;
+    --medium: 0ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}

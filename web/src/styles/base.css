@@ -1,0 +1,161 @@
+/* =============================================================================
+   Module Overview
+   =============================================================================
+   Reset, focus ring and the shared primitives: the kicker and display type, the
+   settings sheet's button, the engine error line and the spinner. Components
+   live in app.css, the `fc-` screens in flow.css. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+img,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 3px;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+/* ---------- type primitives ---------- */
+
+.kicker,
+.fc-kicker {
+  margin: 0;
+  color: var(--fog);
+  font: 600 12px/1.2 var(--sans);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.display {
+  font-family: var(--sans);
+  font-weight: 600;
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 1.5px solid var(--fg);
+  border-radius: 999px;
+  background: transparent;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition:
+    transform var(--fast) var(--ease-out),
+    background var(--fast),
+    color var(--fast);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.btn-solid {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------- states ---------- */
+
+.error-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--skip);
+  background: rgba(255, 75, 43, 0.08);
+  font-size: 15px;
+}
+
+.error-line button {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 700ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
