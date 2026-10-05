@@ -5,15 +5,6 @@
   "description": "FitCheck's phone app: scan or link a garment, see it on you, and get BUY, SKIP or TRY-WITH against your closet, weather and plans.",
   "type": "module",
   "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/HackedRico/FitCheck.git",
-    "directory": "web"
-  },
-  "homepage": "https://github.com/HackedRico/FitCheck#readme",
-  "bugs": {
-    "url": "https://github.com/HackedRico/FitCheck/issues"
-  },
   "scripts": {
     "dev": "vite --host",
     "build": "tsc --noEmit && vite build",

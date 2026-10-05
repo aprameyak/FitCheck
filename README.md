@@ -9,7 +9,6 @@
 ```
 
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![CI](https://github.com/HackedRico/FitCheck/actions/workflows/ci.yml/badge.svg)](https://github.com/HackedRico/FitCheck/actions/workflows/ci.yml)
 [![Hacktoberfest](https://img.shields.io/badge/Hacktoberfest-friendly-orange.svg)](CONTRIBUTING.md)
 
 Point your phone at a garment, or paste a shop link. FitCheck reads it, checks it against what you already own, this week's weather and your calendar, and tells you straight: **BUY**, **SKIP** or **TRY-WITH**. Then it shows the garment on you.
@@ -64,7 +63,7 @@ New here? Read [`AGENTS.md`](AGENTS.md) for how the code fits together and [`CON
 
 ## Built at Hacktoberfest
 
-FitCheck was built for a Hacktoberfest mini hackathon run by [Technica](https://gotechnica.org), [Bitcamp](https://bit.camp) and [Hack4Impact UMD](https://umd.hack4impact.org), where it won the **open source track**. Thanks to the organizers, and to everyone in the [contributors list](https://github.com/HackedRico/FitCheck/graphs/contributors).
+FitCheck was built for a Hacktoberfest mini hackathon run by [Technica](https://gotechnica.org), [Bitcamp](https://bit.camp) and [Hack4Impact UMD](https://umd.hack4impact.org), where it won the **open source track**.
 
 ## Contributing
 
