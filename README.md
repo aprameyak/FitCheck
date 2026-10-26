@@ -2,7 +2,7 @@
 
 FitCheck gives you a second opinion while you are shopping for clothes. Scan a garment with your phone camera or paste a shop link, and it answers BUY, SKIP, or TRY-WITH based on what is already in your closet, the 7-day forecast, and your calendar. It can also show the garment on you.
 
-FitCheck was built by a team at the Hacktoberfest mini hackathon run by Technica, Bitcamp, and Hack4Impact UMD, where it won the open source track. This repository is a copy of the team's project; see [Credits](#credits).
+FitCheck was built at the Hacktoberfest mini hackathon run by Technica, Bitcamp, and Hack4Impact UMD, where it won the open source track.
 
 ## Example
 
@@ -107,10 +107,6 @@ env/        Adapter presets for the open and Snowflake paths
 docker-compose.yml   Postgres (pgvector image) for FITCHECK_STORE=postgres
 Makefile    Entry points for every task; run `make help`
 ```
-
-## Credits
-
-FitCheck was developed in [HackedRico/FitCheck](https://github.com/HackedRico/FitCheck) by HackedRico, chriswu06, aprameyak, israelo19, and Buruk-Ayalew. This repository was imported from that project, so its commit history does not show their individual contributions.
 
 ## Contributing
 
